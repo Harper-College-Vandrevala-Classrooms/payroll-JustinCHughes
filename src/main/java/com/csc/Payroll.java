@@ -4,51 +4,39 @@ import java.util.Scanner;
 public class Payroll {
   // Implement your solution here!
 
-  private static float UNION_FEES = (float) 10.00;
-  private static float PAY_RATE = (float) 16.78;
+  private static double UNION_FEES = 10.00;
 
   public static void main(String[] args) {
     
     // Welcome user and initialize variables
     System.out.print("Welcome to the Payroll Program!\n\n");
-    float hours;
+    double hours;
     int dependents;
     int insurance;
     int lifeInsurance;
-    float pay;
-    float net;
+    double pay;
+    double net;
+    double payRate;
 
-    // Calls checkFloat to ensure hours input is a positive float
-    hours = checkFloat("How many hours did you work this week? "
+    // Calls checkDouble to ensure hours input is a positive double
+    hours = checkDouble("How many hours did you work this week? "
                     , "\nInput was invalid. Please input a positive number.\n");
 
     // Calls checkInt to make sure user input a positive integer
     dependents = checkInt("How many children do you have? "
                     , "\nInput was invalid. Please input a positive number.\n");
 
+    payRate = checkDouble("What is your hourly rate? "
+                    , "\nInput was invalid. Please input a positive number.\n");
+
     // Determines how much worker owes in insurance depending on dependents
-    if (dependents < 3)
-    {
-      insurance = 15;
-    }
-    else
-    {
-      insurance = 35;
-    }
+    insurance = insuranceCost(dependents);
 
     // Calls lifeInsurance function for user to choose lifeInsurance amount
     lifeInsurance = lifeInsuranceSelection(dependents);
 
     // Calculates pay and overtime pay
-    if (hours > 40)
-    {
-      pay = (float) PAY_RATE * 40;
-      pay = pay + ((hours - 40) * (float) 1.5 * (float) PAY_RATE);
-    }
-    else
-    {
-      pay = hours * (float) PAY_RATE;
-    }
+    pay = grosspay(hours, dependents, payRate);
 
     // Prints out function's calculated paystub
     System.out.print("\nPayroll Stub:");
@@ -56,14 +44,14 @@ public class Payroll {
     System.out.print("\nRate:   16.75 $/hr");
     System.out.print("\nGross:   $ " + String.format("%.2f", pay));
 
-    System.out.print("\n\nSocSec:   $ " + String.format("%.2f", (pay * (float) 0.06)));
-    System.out.print("\nFedTax:   $ " + String.format("%.2f", (pay * (float) 0.14)));
-    System.out.print("\nStTax:   $ " + String.format("%.2f", (pay * (float) 0.05)));
+    System.out.print("\n\nSocSec:   $ " + String.format("%.2f", (pay * 0.06)));
+    System.out.print("\nFedTax:   $ " + String.format("%.2f", (pay * 0.14)));
+    System.out.print("\nStTax:   $ " + String.format("%.2f", (pay * 0.05)));
     System.out.print("\nUnion:   $ 10.00");
-    System.out.print("\nIns:   $ " + String.format("%.2f", (float) insurance)); // Needs logic
+    System.out.print("\nIns:   $ " + String.format("%.2f", (float) insurance));
     System.out.print("\nLifeIns:   $ " + String.format("%.2f", (float) lifeInsurance) + "\n");
 
-    net = pay - (pay * (float) .25) - UNION_FEES - insurance - lifeInsurance;
+    net = pay - (pay * .25) - UNION_FEES - insurance - lifeInsurance;
 
     System.out.print("\nNet:   $ " + String.format("%.2f", net));
   }
@@ -107,19 +95,19 @@ public class Payroll {
     return userInput;
   }
 
-  public static float checkFloat(String checkString, String errorString)
+  public static double checkDouble(String checkString, String errorString)
   {
-    Scanner checkFloatScanner = new Scanner(System.in);
-    float userInput = 0;
+    Scanner checkDoubleScanner = new Scanner(System.in);
+    double userInput = 0;
 
-    // Prompts user using input string for a float
-    // Continues to run until user input a float of 0 or greater
+    // Prompts user using input string for a double
+    // Continues to run until user input a double of 0 or greater
     // Breaks out of loop once input meets parameters
     do { 
       System.out.print(checkString);
-      if (checkFloatScanner.hasNextFloat())
+      if (checkDoubleScanner.hasNextDouble())
       {
-        userInput = checkFloatScanner.nextFloat();
+        userInput = checkDoubleScanner.nextDouble();
         if(userInput >= 0)
         {
           break;
@@ -127,18 +115,18 @@ public class Payroll {
         else
         {
           System.out.print(errorString);
-          if(checkFloatScanner.hasNextLine())
+          if(checkDoubleScanner.hasNextLine())
           {
-            checkFloatScanner.nextLine();
+            checkDoubleScanner.nextLine();
           }
         }
       }
       else
       {
         System.out.print(errorString);
-        if(checkFloatScanner.hasNextLine())
+        if(checkDoubleScanner.hasNextLine())
         {
-          checkFloatScanner.nextLine();
+          checkDoubleScanner.nextLine();
         }
       }
     } while (true);
@@ -200,5 +188,29 @@ public class Payroll {
         return 15;
     }
   return 0;
+  }
+
+  public static int insuranceCost(int dependents)
+  {
+    if (dependents < 3)
+    {
+      return 15;
+    }
+    else
+    {
+      return 35;
+    }
+  }
+
+  public static double grosspay(double hours, int dependents, double payRate)
+  {
+    if (hours > 40)
+    {
+      return (payRate * 40) + ((hours - 40) * 1.5 * payRate);
+    }
+    else
+    {
+      return (payRate * hours);
+    }
   }
 }
