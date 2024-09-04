@@ -25,6 +25,11 @@ public class Payroll {
     // Calls checkInt to make sure user input a positive integer
     dependents = checkInt("How many children do you have? "
                     , "\nInput was invalid. Please input a positive number.\n");
+    
+    if(dependents < 0)
+    {
+      dependents = 0;
+    }
 
     payRate = checkDouble("What is your hourly rate? "
                     , "\nInput was invalid. Please input a positive number.\n");
@@ -39,21 +44,22 @@ public class Payroll {
     pay = grosspay(hours, dependents, payRate);
 
     // Prints out function's calculated paystub
-    System.out.print("\nPayroll Stub:");
-    System.out.print("\n\nHours:   " + String.format("%.2f", hours));
-    System.out.print("\nRate:   16.75 $/hr");
-    System.out.print("\nGross:   $ " + String.format("%.2f", pay));
-
-    System.out.print("\n\nSocSec:   $ " + String.format("%.2f", (pay * 0.06)));
-    System.out.print("\nFedTax:   $ " + String.format("%.2f", (pay * 0.14)));
-    System.out.print("\nStTax:   $ " + String.format("%.2f", (pay * 0.05)));
-    System.out.print("\nUnion:   $ 10.00");
-    System.out.print("\nIns:   $ " + String.format("%.2f", (float) insurance));
-    System.out.print("\nLifeIns:   $ " + String.format("%.2f", (float) lifeInsurance) + "\n");
+    System.out.print("\nPayroll Stub:" +
+            "\n\nHours:   " + String.format("%.2f", hours) +
+            "\nRate:   $ " + String.format("%.2f", payRate) +
+            "\nGross:   $ " + String.format("%.2f", pay) + 
+            "\n\nSocSec:   $ " + String.format("%.2f", (pay * 0.06)) +
+            "\nFedTax:   $ " + String.format("%.2f", (pay * 0.14)) +
+            "\nStTax:   $ " + String.format("%.2f", (pay * 0.05)) +
+            "\nUnion:   $ 10.00" +
+            "\nIns:   $ " + String.format("%.2f", (float) insurance) +
+            "\nLifeIns:   $ " + String.format("%.2f", (float) lifeInsurance) + "\n");
 
     net = pay - (pay * .25) - UNION_FEES - insurance - lifeInsurance;
 
-    System.out.print("\nNet:   $ " + String.format("%.2f", net));
+    System.out.print("\nNet:   $ " + String.format("%.2f", net) +
+            "\nThank you for checking your payroll." +
+            "\nHave a nice day\n");
   }
 
   public static int checkInt(String checkString, String errorString)
@@ -69,18 +75,7 @@ public class Payroll {
       if (checkIntScanner.hasNextInt())
       {
         userInput = checkIntScanner.nextInt();
-        if(userInput >= 0)
-        {
-          break;
-        }
-        else
-        {
-          System.out.print(errorString);
-          if(checkIntScanner.hasNextLine())
-          {
-            checkIntScanner.nextLine();
-          }
-        }
+        break;
       }
       else
       {
