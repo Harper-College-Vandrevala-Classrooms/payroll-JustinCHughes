@@ -43,6 +43,10 @@ public class Payroll {
     // Calculates pay and overtime pay
     pay = grosspay(hours, dependents, payRate);
 
+    net = pay - (pay * .25) - UNION_FEES - insurance - lifeInsurance;
+
+    if(net >= 0)
+    {
     // Prints out function's calculated paystub
     System.out.print("\nPayroll Stub:" +
             "\n\nHours:   " + String.format("%.2f", hours) +
@@ -53,12 +57,28 @@ public class Payroll {
             "\nStTax:   $ " + String.format("%.2f", (pay * 0.05)) +
             "\nUnion:   $ 10.00" +
             "\nIns:   $ " + String.format("%.2f", (float) insurance) +
-            "\nLifeIns:   $ " + String.format("%.2f", (float) lifeInsurance) + "\n");
+            "\nLifeIns:   $ " + String.format("%.2f", (float) lifeInsurance) +
+            "\n\nNet:   $ " + String.format("%.2f", net));
+    }
+    else
+    {
+      net = pay - (pay * .25);
 
-    net = pay - (pay * .25) - UNION_FEES - insurance - lifeInsurance;
+      System.out.print("\nPayroll Stub:" +
+            "\n\nHours:   " + String.format("%.2f", hours) +
+            "\nRate:   $ " + String.format("%.2f", payRate) +
+            "\nGross:   $ " + String.format("%.2f", pay) + 
+            "\n\nSocSec:   $ " + String.format("%.2f", (pay * 0.06)) +
+            "\nFedTax:   $ " + String.format("%.2f", (pay * 0.14)) +
+            "\nStTax:   $ " + String.format("%.2f", (pay * 0.05)) +
+            "\n\nNet:   $ " + String.format("%.2f", net) +
+            "\n\nEmployee Still Owes: " +
+            "\n\nUnion:   $ 10.00" +
+            "\nIns:   $ " + String.format("%.2f", (float) insurance) +
+            "\nLifeIns:   $ " + String.format("%.2f", (float) lifeInsurance));
+    }
 
-    System.out.print("\nNet:   $ " + String.format("%.2f", net) +
-            "\nThank you for checking your payroll." +
+    System.out.print("\n\nThank you for checking your payroll." +
             "\nHave a nice day\n");
   }
 
