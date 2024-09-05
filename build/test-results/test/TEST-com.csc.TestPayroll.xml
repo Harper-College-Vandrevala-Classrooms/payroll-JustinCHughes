@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.csc.TestPayroll" tests="12" skipped="0" failures="0" errors="0" timestamp="2024-09-05T04:55:08" hostname="fedora" time="0.145">
+  <properties/>
+  <testcase name="testlifeInsuranceNeg1()" classname="com.csc.TestPayroll" time="0.101"/>
+  <testcase name="testlifeInsurance4WithKid()" classname="com.csc.TestPayroll" time="0.002"/>
+  <testcase name="testlifeInsurance1()" classname="com.csc.TestPayroll" time="0.002"/>
+  <testcase name="testlifeInsurance2()" classname="com.csc.TestPayroll" time="0.002"/>
+  <testcase name="testlifeInsurance3()" classname="com.csc.TestPayroll" time="0.001"/>
+  <testcase name="fullweek50Sal()" classname="com.csc.TestPayroll" time="0.001"/>
+  <testcase name="testInsuranceCostNeg1()" classname="com.csc.TestPayroll" time="0.002"/>
+  <testcase name="testInsuranceCost0()" classname="com.csc.TestPayroll" time="0.002"/>
+  <testcase name="testInsuranceCost3()" classname="com.csc.TestPayroll" time="0.002"/>
+  <testcase name="testlifeInsurance4NoKid()" classname="com.csc.TestPayroll" time="0.001"/>
+  <testcase name="fullweek50Sal41Hours()" classname="com.csc.TestPayroll" time="0.002"/>
+  <testcase name="fullweek()" classname="com.csc.TestPayroll" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
