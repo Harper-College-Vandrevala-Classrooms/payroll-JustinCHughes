@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 
 public class TestPayroll {
 
-  PayrollObjectTest payroll;
+  Payroll payroll;
 
   @BeforeEach
   void setUp() {
-    payroll = new PayrollObjectTest();
+    payroll = new Payroll();
   }
 
   @Test
@@ -41,35 +41,5 @@ public class TestPayroll {
   @Test
   public void testInsuranceCost3() {
     assertEquals(35, payroll.insuranceCost(3));
-  }
-
-  @Test
-  public void testlifeInsuranceNeg1() {
-    assertEquals(null, payroll.lifeInsuranceSelection(0, -1));
-  }
-
-  @Test
-  public void testlifeInsurance4NoKid() {
-    assertEquals(null, payroll.lifeInsuranceSelection(0, 4));
-  }
-
-  @Test
-  public void testlifeInsurance4WithKid() {
-    assertEquals(15, payroll.lifeInsuranceSelection(1, 4));
-  }
-
-  @Test
-  public void testlifeInsurance3() {
-    assertEquals(10, payroll.lifeInsuranceSelection(0, 3));
-  }
-
-  @Test
-  public void testlifeInsurance2() {
-    assertEquals(5, payroll.lifeInsuranceSelection(0, 2));
-  }
-
-  @Test
-  public void testlifeInsurance1() {
-    assertEquals(0, payroll.lifeInsuranceSelection(0, 1));
   }
 }

@@ -17,13 +17,14 @@ public class Payroll {
     double pay;
     double net;
     double payRate;
+    Payroll payroll = new Payroll();
 
     // Calls checkDouble to ensure hours input is a positive double
-    hours = checkDouble("How many hours did you work this week? "
+    hours = payroll.checkDouble("How many hours did you work this week? "
                     , "\nInput was invalid. Please input a positive number.\n");
 
     // Calls checkInt to make sure user input a positive integer
-    dependents = checkInt("How many children do you have? "
+    dependents = payroll.checkInt("How many children do you have? "
                     , "\nInput was invalid. Please input a positive number.\n");
     
     if(dependents < 0)
@@ -31,17 +32,17 @@ public class Payroll {
       dependents = 0;
     }
 
-    payRate = checkDouble("What is your hourly rate? "
+    payRate = payroll.checkDouble("What is your hourly rate? "
                     , "\nInput was invalid. Please input a positive number.\n");
 
     // Determines how much worker owes in insurance depending on dependents
-    insurance = insuranceCost(dependents);
+    insurance = payroll.insuranceCost(dependents);
 
     // Calls lifeInsurance function for user to choose lifeInsurance amount
-    lifeInsurance = lifeInsuranceSelection(dependents);
+    lifeInsurance = payroll.lifeInsuranceSelection(dependents);
 
     // Calculates pay and overtime pay
-    pay = grosspay(hours, dependents, payRate);
+    pay = payroll.grosspay(hours, payRate);
 
     net = pay - (pay * .25) - UNION_FEES - insurance - lifeInsurance;
 
@@ -49,13 +50,13 @@ public class Payroll {
     {
     // Prints out function's calculated paystub
     System.out.print("\nPayroll Stub:" +
-            "\n\nHours:   " + String.format("%.2f", hours) +
+            String.format("%15s","\n\nHours:   ") + String.format("%.2f", hours) +
             "\nRate:   $ " + String.format("%.2f", payRate) +
             "\nGross:   $ " + String.format("%.2f", pay) + 
             "\n\nSocSec:   $ " + String.format("%.2f", (pay * 0.06)) +
             "\nFedTax:   $ " + String.format("%.2f", (pay * 0.14)) +
             "\nStTax:   $ " + String.format("%.2f", (pay * 0.05)) +
-            "\nUnion:   $ 10.00" +
+            "\nUnion:   $ " + UNION_FEES +
             "\nIns:   $ " + String.format("%.2f", (float) insurance) +
             "\nLifeIns:   $ " + String.format("%.2f", (float) lifeInsurance) +
             "\n\nNet:   $ " + String.format("%.2f", net));
@@ -73,7 +74,7 @@ public class Payroll {
             "\nStTax:   $ " + String.format("%.2f", (pay * 0.05)) +
             "\n\nNet:   $ " + String.format("%.2f", net) +
             "\n\nEmployee Still Owes: " +
-            "\n\nUnion:   $ 10.00" +
+            "\n\nUnion:   $ " + UNION_FEES +
             "\nIns:   $ " + String.format("%.2f", (float) insurance) +
             "\nLifeIns:   $ " + String.format("%.2f", (float) lifeInsurance));
     }
@@ -82,7 +83,7 @@ public class Payroll {
             "\nHave a nice day\n");
   }
 
-  public static int checkInt(String checkString, String errorString)
+  public int checkInt(String checkString, String errorString)
   {
     Scanner checkIntScanner = new Scanner(System.in);
     int userInput = 0;
@@ -110,7 +111,7 @@ public class Payroll {
     return userInput;
   }
 
-  public static double checkDouble(String checkString, String errorString)
+  public double checkDouble(String checkString, String errorString)
   {
     Scanner checkDoubleScanner = new Scanner(System.in);
     double userInput = 0;
@@ -149,7 +150,7 @@ public class Payroll {
     return userInput;
   }
 
-  public static int lifeInsuranceSelection(int dependents)
+  public int lifeInsuranceSelection(int dependents)
   {
     int userInput = 0;
 
@@ -205,7 +206,7 @@ public class Payroll {
   return 0;
   }
 
-  public static int insuranceCost(int dependents)
+  public int insuranceCost(int dependents)
   {
     if (dependents < 3)
     {
@@ -217,7 +218,7 @@ public class Payroll {
     }
   }
 
-  public static double grosspay(double hours, int dependents, double payRate)
+  public double grosspay(double hours, double payRate)
   {
     if (hours > 40)
     {
