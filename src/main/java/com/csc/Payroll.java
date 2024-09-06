@@ -160,14 +160,8 @@ public class Payroll {
       // Notifies user on error that they must select 1, 2, 3 or 4
       // Continues to run do while loop until user makes selection from list
       // Also continues loop if user selects plan 4 with no children
-      userInput = checkInt("""
-                           Which life insurance plan do you want to select?
-                           
-                             (1) no plan
-                             (2) single plan
-                             (3) married plan
-                             (4) married with children plan
-                           ""","\nInvalid input. Input must be '1','2', '3' or '4'.\n");
+      userInput = checkInt("\nWhich life insurance plan do you want to select?\n\n(1) no plan\n(2) single plan\n(3) married plan\n(4) married with children plan'n"
+                                        ,"\nInvalid input. Input must be '1','2', '3' or '4'.\n");
       if(userInput > 0 && userInput <= 3)
       {
         break;
@@ -176,9 +170,7 @@ public class Payroll {
       {
         if(dependents == 0)
         {
-          System.out.print("""
-                           Invalid input. You need at least one child to select plan 4.
-                           Please select a different plan""");
+          System.out.print("\nInvalid input. You need at least one child to select plan 4.\n\nPlease select a different plan");
         }
         else
         {
