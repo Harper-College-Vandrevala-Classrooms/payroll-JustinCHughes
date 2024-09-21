@@ -27,13 +27,21 @@ public class Payroll {
     dependents = payroll.checkInt("How many children do you have? "
                     , "\nInput was invalid. Please input a positive number.\n");
     
+    // If user inputs less than 0 value for dependents, it changes value to 0
     if(dependents < 0)
     {
       dependents = 0;
     }
 
-    payRate = payroll.checkDouble("What is your hourly rate? "
-                    , "\nInput was invalid. Please input a positive number.\n");
+    // Keeps asking until user picks a positive number
+    do {
+      payRate = payroll.checkDouble("What is your hourly rate? "
+                      , "\nInput was invalid. Please input a positive number.\n");
+      if(payRate < 0)
+      {
+        System.out.println("Invalid entry. Please enter a positive value for your hourly rate.");
+      }
+    } while(payRate < 0);
 
     // Determines how much worker owes in insurance depending on dependents
     insurance = payroll.insuranceCost(dependents);
